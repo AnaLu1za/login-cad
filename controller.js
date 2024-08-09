@@ -69,4 +69,3 @@ function acessar() {
     // Remove o item antigo do array e o adicionará novamente com o novo valor após a edição
     dadosLista.splice(i, 1);
   }
-  
