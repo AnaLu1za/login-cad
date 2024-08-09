@@ -96,12 +96,12 @@
 
 ## Recursos de JavaScript utilizados 
 ### Manipulação do DOM (Document Object Model)
-
-    - document.getElementById(): Essa função é usada para selecionar elementos HTML pelo seu ID. No código, ela é utilizada para obter os elementos de input (email, senha, nome) e a tabela onde os usuários são listados.
-    - innerHTML: Essa propriedade é usada para modificar o conteúdo HTML de um elemento. No caso da tabela, ela é utilizada para criar as linhas e colunas dinamicamente.
-    - createElement(): Embora não seja explicitamente usada neste código, essa função permite criar novos elementos HTML programaticamente.
-    - appendChild(): Outra função para manipulação do DOM, permite adicionar um nó filho a um elemento pai.
-
+`````
+- document.getElementById(): Essa função é usada para selecionar elementos HTML pelo seu ID. No código, ela é utilizada para obter os elementos de input (email, senha, nome) e a tabela onde os usuários são listados.
+- innerHTML: Essa propriedade é usada para modificar o conteúdo HTML de um elemento. No caso da tabela, ela é utilizada para criar as linhas e colunas dinamicamente.
+- createElement(): Embora não seja explicitamente usada neste código, essa função permite criar novos elementos HTML programaticamente.
+- appendChild(): Outra função para manipulação do DOM, permite adicionar um nó filho a um elemento pai.
+`````
 <br>
 
 ### Trabalhando com Arrays
