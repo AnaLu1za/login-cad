@@ -3,102 +3,134 @@
 ## Índice
 * [Introdução](#introdução)
 * [Funcionalidades](#funcionalidades)
-* [Lógica do código](#)
+* [Lógica do código](#lógica-do-código)
+* [Recursos de JavaScript utilizados](#recursos-de-javascript-utilizados)
 * [Técnicas e tecnologias utilizadas](#técnicas-e-tecnologias-utilizadas)
 * [Fontes Consultadas](#fontes-consultadas)
 
 
 ## Introdução
-Este código JavaScript implementa uma função básica para validar um endereço de e-mail. A função verifica se o campo de e-mail está preenchido e se contém o caractere "@" e um ponto ".".
+1. Este repositório contém o código fonte de uma aplicação web simples para gerenciar uma lista de usuários. A aplicação oferece as seguintes funcionalidades:
+
+    - **Formulário de cadastro:** Um formulário intuitivo para adicionar novos usuários.
+    - **Tabela de usuários:** Uma tabela HTML dinâmica que lista todos os usuários cadastrados, permitindo a visualização rápida dos dados.
+
+2. Funcionalidades técnicas:
+    - **JavaScript:** A lógica da aplicação é implementada em JavaScript puro, manipulando o DOM para criar e atualizar a interface do usuário.
+    - **Armazenamento de dados:** Os dados dos usuários são armazenados em um array JavaScript, o que é útil para demonstração, mas não é recomendado para aplicações em produção.
 
 <br>
 
-![e-mail](img/email-video.gif)
+### Tela de Login
+    A tela de login permite que usuários autenticados acessem o sistema. O usuário deve fornecer um email válido e uma senha correspondente para realizar o login.
+
+![login](img/login-cad.gif)
+
+- **Funcionalidades básicas:**
+    - **Validação:** Verifica se os campos de email e senha estão preenchidos.
+    - **Redirecionamento:** Redireciona para a página de cadastro caso os campos estejam vazios.
+
+### Tela de Cadastro 
+    A tela de cadastro permite que novos usuários se registrem no sistema. O usuário deve fornecer um nome para criar sua conta.
+
+![cadastro](img/Cad-PWI.gif)
+
+- **Funcionalidades básicas:**
+    - **Cadastro:** Adiciona o nome do usuário a uma lista em memória.
+    - **Visualização:** Exibe os usuários cadastrados em uma tabela.
+    - **Edição:** Permite editar o nome de um usuário.
+    - **Exclusão:** Permite excluir um usuário da lista
 
 ## Funcionalidades
-**document.forms[0].email.value:**
-- ``document:`` Representa o documento HTML completo.
-- ``forms[0]:`` Acessa o primeiro formulário do documento.
-- ``email:`` Acessa o elemento de entrada com o nome "email" dentro do formulário.
-- ``value:`` Obtém o valor (texto) inserido pelo usuário nesse campo. 
-
-<br>
-<br>
-
-**indexOf():**
- - É um método de string que retorna o índice da primeira ocorrência de um caractere específico dentro de uma string. Se o caractere não for encontrado, retorna -1.
-- ``indexOf('@'):`` Verifica se o caractere "@" existe no endereço de e-mail.
-- ``indexOf('.'):`` Verifica se o caractere "." existe no endereço de e-mail.
-
-<br>
+### function acessar()
+![acessar()](img/função%20acessar%20.png)
+````
+- Obtenção dos valores: Captura os valores dos campos de email e senha do formulário de login.
+- Validação: Verifica se ambos os campos estão preenchidos.
+- Redirecionamento: Se os campos estiverem válidos, redireciona para a página de cadastro. 
+````
 <br>
 
-**alert():**
-- Exibe uma caixa de diálogo com uma mensagem para o usuário.
-
+### function salvarUser()
+![salvarUser()](img/função%20salvar%20user%20.png)
+````
+- Obtenção do valor: Captura o nome do usuário do campo de entrada.
+- Validação: Verifica se o campo de nome está preenchido.
+- Adição ao array: Adiciona o nome do usuário ao array dadosLista.
+- Atualização da tabela: Chama a função criarLista() para atualizar a tabela na tela.
+- Limpeza do campo: Limpa o campo de entrada de nome para o próximo usuário.`
+````
 <br>
+
+### function criarLista()
+![criarLista()](img/função%20cria%20lista%20.png)
+````
+- Criação da tabela: Cria a estrutura básica da tabela HTML com um cabeçalho contendo as colunas "Nome Usuário" e "Ações".
+- Preenchimento da tabela: Percorre o array dadosLista e para cada usuário:
+- Cria uma nova linha na tabela.
+- Adiciona uma célula com o nome do usuário.
+- Adiciona uma célula com dois botões: um para editar e outro para excluir o usuário. Os botões chamam as funções editar() e excluir(), respectivamente.
+````
 <br>
 
-**return:**
-- Interrompe a execução da função e retorna um valor. Neste caso, return false impede o envio do formulário.
-
+### function excluir(i)
+![excluir](img/função%20excluir.png)
+````
+- Remoção do array: Remove o elemento na posição i do array dadosLista.
+- Remoção da linha: Remove a linha correspondente na tabela HTML.
+````
 <br>
+
+### function editar(i)
+![editar](/img/função%20editar.png)
+````
+- Preenchimento do campo: Preenche o campo de entrada de nome com o nome do usuário a ser editado.
+- Remoção do item: Remove o item antigo do array dadosLista. Observação: O item será adicionado novamente ao array após a edição, mas essa lógica não está explicitamente implementada neste código.
+````
 <br>
 
-**document.getElementById('email').innerHTML:**
-- ``document.getElementById('email'):`` Obtém o elemento HTML com o ID "email".
-- ``innerHTML:`` Define o conteúdo HTML dentro desse elemento.
-
-### Lógica da validação e-mail 
-1. **Obtém o valor do campo de e-mail:** A função pega o texto digitado no campo de e-mail.
-2. **Verifica a presença de "@" e ".":** Utiliza o método indexOf() para verificar se os caracteres "@" e "." estão presentes no endereço de e-mail.
-3. **Exibe mensagem de erro ou confirmação:** Se o e-mail for inválido (não contém "@" ou "."), exibe uma mensagem de erro. Caso contrário, exibe uma mensagem de confirmação e atualiza o conteúdo de um elemento HTML com o valor do e-mail.
-4. **Impede o envio do formulário:** Se o e-mail for inválido, retorna false para evitar o envio do formulário.
+## Lógica do código
+    O código funciona como um pequeno banco de dados em memória, armazenando os nomes dos usuários em um array. A interface HTML é atualizada dinamicamente sempre que um novo usuário é adicionado, editado ou excluído.
 
 ![miau.gif](https://steemitimages.com/DQmZCo76MUSeg8WNYUqr9UMGig3kufJWfENY337KfSbpoJC/miau.gif)
 
-## Introdução CPF
-Este código JavaScript implementa uma função de validação de CPF, um número de identificação individual utilizado no Brasil. A validação é crucial para garantir a integridade dos dados e evitar fraudes. O código verifica se o CPF possui 11 dígitos, se não possui todos os dígitos iguais e se os dígitos verificadores estão corretos, seguindo o algoritmo padrão de cálculo do CPF.
-
+## Recursos de JavaScript utilizados 
+### Manipulação do DOM (Document Object Model)
+````
+- document.getElementById(): Essa função é usada para selecionar elementos HTML pelo seu ID. No código, ela é utilizada para obter os elementos de input (email, senha, nome) e a tabela onde os usuários são listados.
+- innerHTML: Essa propriedade é usada para modificar o conteúdo HTML de um elemento. No caso da tabela, ela é utilizada para criar as linhas e colunas dinamicamente.
+- createElement(): Embora não seja explicitamente usada neste código, essa função permite criar novos elementos HTML programaticamente.
+- appendChild(): Outra função para manipulação do DOM, permite adicionar um nó filho a um elemento pai.
+````
 <br>
 
-![cpf](img/cpf-video.gif)
+### Trabalhando com Arrays
+````
+- dadosLista: Um array simples é usado para armazenar os nomes dos usuários.
+- push(): Adiciona um novo elemento ao final do array.
+- splice(): Remove elementos de um array a partir de um índice específico.
+````
+<br>
 
-## Recursos de JavaScript utilizados 
-- ``document.getElementById():`` 
-    Utilizado para obter referências a elementos HTML pelo seu ID, como o formulário, o campo de entrada do CPF e o elemento para exibir a mensagem de resultado.
-- ``addEventListener():`` 
-    Adiciona um ouvinte de eventos ao formulário, permitindo executar uma função específica (neste caso, a função de validação) quando o formulário é enviado.
-- ``event.preventDefault():`` 
-    Impede o comportamento padrão do formulário, que seria recarregar a página.
-- ``replace():`` 
-    Remove todos os caracteres não numéricos do CPF, deixando apenas os dígitos.
-- ``test():`` 
-    Verifica se uma string corresponde a uma determinada expressão regular. Neste caso, é usado para verificar se todos os dígitos do CPF são iguais.
-- ``substring():`` 
-    Extrai uma parte de uma string, permitindo acessar cada dígito do CPF individualmente.
-- ``parseInt():`` 
-    Converte uma string para um número inteiro.
-- ``if...else:`` 
-    Estrutura condicional para tomar decisões com base em diferentes condições.
-- ``for:`` 
-    Estrutura de repetição para iterar sobre os dígitos do CPF e realizar os cálculos necessários.
+### Eventos
+````
+- onclick: Esse atributo é usado para associar uma função a um evento de clique. Nos botões de "Editar" e "Excluir", ele chama as funções editar() e excluir(), respectivamente.
+````
+<br>
 
-### Lógica da validação CPF
-1. Obtenção do CPF: O valor do CPF é obtido do campo de entrada do formulário.
-2. Remoção de caracteres não numéricos: São removidos todos os caracteres que não sejam dígitos do CPF.
-3. Verificação da quantidade de dígitos: O CPF deve ter exatamente 11 dígitos.
-4. Verificação de dígitos iguais: É verificado se todos os dígitos do CPF são iguais, o que indicaria um CPF inválido.
-5. Cálculo do primeiro dígito verificador:
-    - É realizada uma soma ponderada dos primeiros 9 dígitos do CPF.
-    - O resto da divisão dessa soma por 11 é calculado.
-    - O resto é comparado com o décimo dígito do CPF.
-6. Cálculo do segundo dígito verificador:
-    - É realizada uma soma ponderada dos primeiros 10 dígitos do CPF (incluindo o primeiro dígito verificador).
-    - O resto da divisão dessa soma por 11 é calculado.
-    - O resto é comparado com o décimo primeiro dígito do CPF.
-7. Resultado: Se ambos os dígitos verificadores forem válidos, o CPF é considerado válido. Caso contrário, é inválido.
+### Funções
+````
+- Funções anônimas: São usadas para definir o comportamento dos botões de "Editar" e "Excluir" diretamente no atributo onclick.
+- window.location.href: Redireciona o navegador para uma nova URL.
+````
+<br>
 
+### Outras características
+````
+- Variáveis: O código utiliza variáveis para armazenar valores temporários, como o nome do usuário e o índice do elemento a ser editado ou excluído.
+- Condicionais: As estruturas if são usadas para tomar decisões, como verificar se os campos estão preenchidos.
+- Laços: O laço for é usado para percorrer o array dadosLista e criar as linhas da tabela.
+````
 ## Técnicas e tecnologias utilizadas
 * [<code><img height="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" alt="HTML5"/></code>](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
 * [<code><img height="32" src="https://cdn.worldvectorlogo.com/logos/css-3.svg" alt="CSS3"/></code>](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
