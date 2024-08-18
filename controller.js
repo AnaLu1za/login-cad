@@ -19,53 +19,56 @@ function acessar() {
   // Função para salvar o nome do usuário no array e atualizar a lista
   function salvarUser() {
     let nomeUser = document.getElementById('nomeUser').value;
+    let emailUser = document.getElementById('emailUser').value; 
   
     // Verifica se o campo de nome está preenchido
-    if (nomeUser) {
-      // Adiciona o nome ao array
-      dadosLista.push(nomeUser);
-      console.log(dadosLista); // Loga o array no console para verificação
-  
-      // Chama a função para criar ou atualizar a lista na tabela
-      criarLista();
-  
-      // Limpa o campo de entrada de nome
-      document.getElementById('nomeUser').value = "";
+    if (nomeUser && emailUser) {
+    // Adiciona validação de e-mail
+      if (emailUser.includes('@') && emailUser.includes('.')){
+        dadosLista.push({nome: nomeUser, email: emailUser}); // Adiciona nome e e-mail ao array
+        console.log(dadosLista); // Loga o array no console para verificação
+        criarLista(); // Chama a função para criar ou atualizar a lista na tabela
+        document.getElementById('nomeUser').value = ""; // Limpa o campo de entrada de nome
+        document.getElementById('emailUser').value = ""; // Limpa o campo de entrada de e-mail
     } else {
-      alert("Favor informar o nome");
+      alert("Favor informar um e-mail válido");
+    }
+    } else {
+      alert("Favor preencher todos os campos");
     }
   }
   
   // Função para criar e atualizar a lista de usuários na tabela
   function criarLista() {
-    // Obtém a referência à tabela e cria o cabeçalho
-    let tabela = document.getElementById('tabela');
-    tabela.innerHTML = "<tr><th>Nome Usuário</th><th>Ações</th></tr>";
-  
-    // Percorre o array de usuários e cria uma linha para cada um
-    for (let i = 0; i < dadosLista.length; i++) {
-      // Cria uma nova linha e adiciona as células com o nome e os botões de ação
-      tabela.innerHTML += `<tr><td>${dadosLista[i]}</td><td>
-        <button onclick="editar(${i})">Editar</button>
-        <button onclick="excluir(${i})">Excluir</button>
-      </td></tr>`;
-    }
+      let tabela = "<tr><th>Nome Usuário</th><th>Email</th><th>Ações</th></tr>";
+      for (let i = 0; i < dadosLista.length; i++) {
+          tabela += `<tr>
+              <td>${dadosLista[i].nome}</td>
+              <td>${dadosLista[i].email}</td>
+              <td>
+                  <button type='button' onclick='editar(${i})' class='btn btn-warning btn-sm'>Editar</button>
+                  <button type='button' onclick='excluir(${i})' class='btn btn-danger btn-sm'>Excluir</button>
+              </td>
+          </tr>`;
+      }
+      document.getElementById('tabela').innerHTML = tabela;
   }
   
-  // Função para excluir um usuário da lista e da tabela
-  function excluir(i) {
-    // Remove o elemento do array na posição indicada
-    dadosLista.splice(i, 1);
-  
-    // Remove a linha correspondente da tabela
-    document.getElementById('tabela').deleteRow(i + 1); // +1 pois o cabeçalho ocupa a linha 0
-  }
   
   // Função para editar um usuário da lista
   function editar(i) {
-    // Preenche o campo de entrada com o nome a ser editado
-    document.getElementById("nomeUser").value = dadosLista[i];
-  
+    // Preenche o campo de entrada com o nome e email a ser editado
+    document.getElementById("nomeUser").value = dadosLista[i].nome;
+    document.getElementById("emailUser").value = dadosLista[i].email;
     // Remove o item antigo do array e o adicionará novamente com o novo valor após a edição
     dadosLista.splice(i, 1);
+    criarLista();
   }
+    // Função para excluir um usuário da lista e da tabela
+    function excluir(i) {
+      // Remove o elemento do array na posição indicada
+      dadosLista.splice(i, 1);
+    
+      // Remove a linha correspondente da tabela
+      document.getElementById('tabela').deleteRow(i + 1); // +1 pois o cabeçalho ocupa a linha 0
+    }
