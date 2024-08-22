@@ -71,9 +71,3 @@ function acessar() {
       // Remove a linha correspondente da tabela
       document.getElementById('tabela').deleteRow(i + 1); // +1 pois o cabeçalho ocupa a linha 0
     }
-
-
-
-
-
-    
