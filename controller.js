@@ -20,7 +20,6 @@ function acessar() {
   function salvarUser() {
     let nomeUser = document.getElementById('nomeUser').value;
     let emailUser = document.getElementById('emailUser').value; 
-  
     // Verifica se o campo de nome está preenchido
     if (nomeUser && emailUser) {
     // Adiciona validação de e-mail
@@ -72,3 +71,9 @@ function acessar() {
       // Remove a linha correspondente da tabela
       document.getElementById('tabela').deleteRow(i + 1); // +1 pois o cabeçalho ocupa a linha 0
     }
+
+
+
+
+
+    
