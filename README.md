@@ -5,6 +5,7 @@
 * [Funcionalidades](#funcionalidades)
 * [Lógica do código](#lógica-do-código)
 * [Recursos de JavaScript utilizados](#recursos-de-javascript-utilizados)
+* [Melhorias feitas](#melhorias-feitas)
 * [Técnicas e tecnologias utilizadas](#técnicas-e-tecnologias-utilizadas)
 * [Fontes Consultadas](#fontes-consultadas)
 
@@ -135,11 +136,11 @@
 ![e-mail](img/alteração.PNG)
 <br>
 
-## Modificação no código
+## Melhorias feitas 
 ### function salvarUser()
 ![salvarUser()](img/função%20salvarUser.PNG)
 ````
-- Obtenção do valor: Captura o e-mail do usuário do campo de entrada.
+- Obtenção do valor: Captura o e-mail e nome do usuário do campo de entrada.
 - Validação: Verifica se o campo de nome e e-mail estão preenchidos, e se o e-mail colocado é realmente um e-mail.
 - Adição ao array: Adiciona o nome e e-mail do usuário ao array dadosLista.
 - Atualização da tabela: Chama a função criarLista() para atualizar a tabela na tela.
