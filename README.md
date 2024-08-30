@@ -5,6 +5,7 @@
 * [Funcionalidades](#funcionalidades)
 * [Lógica do código](#lógica-do-código)
 * [Recursos de JavaScript utilizados](#recursos-de-javascript-utilizados)
+* [Melhorias feitas](#melhorias-feitas)
 * [Técnicas e tecnologias utilizadas](#técnicas-e-tecnologias-utilizadas)
 * [Fontes Consultadas](#fontes-consultadas)
 
@@ -12,8 +13,8 @@
 ## Introdução
 1. Este repositório contém o código fonte de uma aplicação web simples para gerenciar uma lista de usuários. A aplicação oferece as seguintes funcionalidades:
 
-    - **Formulário de cadastro:** Um formulário intuitivo para adicionar novos usuários.
-    - **Tabela de usuários:** Uma tabela HTML dinâmica que lista todos os usuários cadastrados, permitindo a visualização rápida dos dados.
+    - **Formulário de cadastro:** Um formulário intuitivo para adicionar novos usuários por nome e e-mail.
+    - **Tabela de usuários:** Uma tabela HTML dinâmica que lista todos os usuários cadastrados por nome e e-mail permitindo a visualização rápida dos dados.
 
 2. Funcionalidades técnicas:
     - **JavaScript:** A lógica da aplicação é implementada em JavaScript puro, manipulando o DOM para criar e atualizar a interface do usuário.
@@ -31,7 +32,7 @@
     - **Redirecionamento:** Redireciona para a página de cadastro caso os campos estejam vazios.
 
 ### Tela de Cadastro 
-    A tela de cadastro permite que novos usuários se registrem no sistema. O usuário deve fornecer um nome para criar sua conta.
+    A tela de cadastro permite que novos usuários se registrem no sistema. O usuário deve fornecer um nome e e-mail para criar sua conta.
 
 ![cadastro](img/Cad-PWI.gif)
 
@@ -131,6 +132,53 @@
 - Condicionais: As estruturas if são usadas para tomar decisões, como verificar se os campos estão preenchidos.
 - Laços: O laço for é usado para percorrer o array dadosLista e criar as linhas da tabela.
 ````
+# Adição de e-mail ao cadastro de usuário
+![e-mail](img/alteração.PNG)
+<br>
+
+## Melhorias feitas 
+### function salvarUser()
+![salvarUser()](img/função%20salvarUser.PNG)
+````
+- Obtenção do valor: Captura o e-mail e nome do usuário do campo de entrada.
+- Validação: Verifica se o campo de nome e e-mail estão preenchidos, e se o e-mail colocado é realmente um e-mail.
+- Adição ao array: Adiciona o nome e e-mail do usuário ao array dadosLista.
+- Atualização da tabela: Chama a função criarLista() para atualizar a tabela na tela.
+- Limpeza do campo: Limpa o campo de entrada de nome para o próximo usuário.`
+````
+<br>
+
+### function criarLista()
+![criarLista()](img/função%20cria%20lista%20.png)
+````
+- Criação da tabela: Cria a estrutura básica da tabela HTML com um cabeçalho contendo as colunas "Nome Usuário", "E-mail" e "Ações".
+- Preenchimento da tabela: Percorre o array dadosLista e para cada usuário:
+- Cria uma nova linha na tabela.
+- Adiciona uma célula com o nome do usuário.
+- Adiciona uma célula com o e-mail do usuário. 
+- Adiciona uma célula com dois botões: um para editar e outro para excluir o nome e e-mail do usuário. Os botões chamam as funções editar() e excluir(), respectivamente.
+````
+<br>
+
+### function excluir(i)
+![excluir](img/função%20excluir%20v2.PNG)
+````
+- Remoção do array: Remove o elemento na posição i do array dadosLista.
+- Remoção da linha: Remove a linha correspondente na tabela HTML.
+````
+<br>
+
+### function editar(i)
+![editar](img/função%20editar%20v2.PNG)
+````
+- Preenchimento do campo: Preenche o campo de entrada de nome ou e-mail com o nome ou e-mail do usuário a ser editado.
+- Remoção do item: Remove o item antigo do array dadosLista. 
+````
+<br>
+
+![miau.gif](https://steemitimages.com/DQmZCo76MUSeg8WNYUqr9UMGig3kufJWfENY337KfSbpoJC/miau.gif)
+
+
 ## Técnicas e tecnologias utilizadas
 * [<code><img height="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" alt="HTML5"/></code>](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
 * [<code><img height="32" src="https://cdn.worldvectorlogo.com/logos/css-3.svg" alt="CSS3"/></code>](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
