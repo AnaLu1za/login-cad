@@ -1,71 +1,110 @@
 // Validação de preenchimento do formulário de login
-function acessar() {
-    let loginEmail = document.getElementById('loginEmail').value;
-    let loginSenha = document.getElementById('loginSenha').value;
-  
-    // Verifica se os campos de email e senha estão preenchidos
-    if (!loginEmail || !loginSenha) {
-      alert('Favor preencher todos os campos');
-    } else {
-      alert('Campos preenchidos com sucesso');
-      // Redireciona para a página de cadastro
-      window.location.href = 'cadastro.html';
-    }
+    function acessar() {
+      let loginEmail = document.getElementById('loginEmail').value;
+      let loginSenha = document.getElementById('loginSenha').value;
+   
+   // Verifica se os campos de email e senha estão preenchidos
+      if (!loginEmail || !loginSenha) {
+          alert('Favor preencher todos os campos');
+      } else {
+          alert('Campos preenchidos com sucesso');
+          window.location.href = 'cadastro.html';
+      }
   }
-  
-  // Array para armazenar os nomes dos usuários
+   
+  // Função de criação do array para armazenamento de dados
+   
   var dadosLista = [];
+  var emailLista = [];
+  var cpflista = [];
   
-  // Função para salvar o nome do usuário no array e atualizar a lista
+ // Função para salvar o nome do usuário no array e atualizar a lista
   function salvarUser() {
-    let nomeUser = document.getElementById('nomeUser').value;
-  
-    // Verifica se o campo de nome está preenchido
-    if (nomeUser) {
-      // Adiciona o nome ao array
-      dadosLista.push(nomeUser);
-      console.log(dadosLista); // Loga o array no console para verificação
-  
-      // Chama a função para criar ou atualizar a lista na tabela
-      criarLista();
-  
-      // Limpa o campo de entrada de nome
-      document.getElementById('nomeUser').value = "";
-    } else {
-      alert("Favor informar o nome");
-    }
+      let nomeUser = document.getElementById('nomeUser').value;
+      let emailUser = document.getElementById('emailUser').value;
+      let cpfUser = document.getElementById('cpfUser').value;
+   
+      if (nomeUser && emailUser && emailUser.includes('@') && emailUser.includes('.') && validarCPF(cpfUser)) {
+          dadosLista.push(nomeUser);
+          emailLista.push(emailUser);
+          cpflista.push(cpfUser);
+          criarLista();
+          document.getElementById('nomeUser').value = "";
+          document.getElementById('emailUser').value = "";
+          document.getElementById('cpfUser').value = "";
+      } else {
+          if (!validarCPF(cpfUser)) {
+              alert("Coloque um CPF válido");
+          } else {
+              alert("Favor informar o nome e email corretamente");
+          }
+      }
   }
-  
-  // Função para criar e atualizar a lista de usuários na tabela
+  // Função de criação de lista
   function criarLista() {
-    // Obtém a referência à tabela e cria o cabeçalho
-    let tabela = document.getElementById('tabela');
-    tabela.innerHTML = "<tr><th>Nome Usuário</th><th>Ações</th></tr>";
-  
-    // Percorre o array de usuários e cria uma linha para cada um
+    let tabela = "<tr><th>Nome Usuário</th><th>Email</th><th>CPF</th><th>Ações</th></tr>";
     for (let i = 0; i < dadosLista.length; i++) {
-      // Cria uma nova linha e adiciona as células com o nome e os botões de ação
-      tabela.innerHTML += `<tr><td>${dadosLista[i]}</td><td>
-        <button onclick="editar(${i})">Editar</button>
-        <button onclick="excluir(${i})">Excluir</button>
-      </td></tr>`;
+        tabela += "<tr><td>" + dadosLista[i] + "</td><td>" + emailLista[i] + "</td><td>" + cpflista[i] + "</td><td><button onclick='excluir(" + (i + 1) + ")'>Excluir</button> <button onclick='editar(" + (i + 1) + ")'>Editar</button></td></tr>";
     }
-  }
+    document.getElementById('tabela').innerHTML = tabela;
+}
+ 
+// Função para excluir nome da lista
+function excluir(i) {
+    dadosLista.splice((i - 1), 1);
+    emailLista.splice((i - 1), 1);
+    cpflista.splice((i - 1), 1);
+    criarLista();
+}
+ 
+// Função para editar nome e email da lista
+function editar(i) {
+    document.getElementById('nomeUser').value = dadosLista[(i - 1)];
+    document.getElementById("emailUser").value = emailLista[(i - 1)];
+    document.getElementById("cpfUser").value = cpflista[(i - 1)];
+ 
+    dadosLista.splice((i - 1), 1);
+    emailLista.splice((i - 1), 1);
+    cpflista.splice((i - 1), 1);
+ 
+    criarLista();
+}
+ 
+
+
+// Validação de CPF
+  function validarCPF(cpf) {
+    cpf = cpf.replace(/[^\d]+/g, '');
+ 
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+        return false;
+    }
+ 
+    let soma = 0;
+    let resto;
+ 
+    for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+ 
+    if (resto === 10 || resto === 11) {
+        resto = 0;
+    }
+    if (resto !== parseInt(cpf.substring(9, 10))) {
+        return false;
+    }
+ 
+    soma = 0;
+    for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+    }
+    resto = (soma * 10) % 11;
+ 
+    if (resto === 10 || resto === 11) {
+        resto = 0;
+    }
+    return resto === parseInt(cpf.substring(10, 11));
+}
+ 
   
-  // Função para excluir um usuário da lista e da tabela
-  function excluir(i) {
-    // Remove o elemento do array na posição indicada
-    dadosLista.splice(i, 1);
-  
-    // Remove a linha correspondente da tabela
-    document.getElementById('tabela').deleteRow(i + 1); // +1 pois o cabeçalho ocupa a linha 0
-  }
-  
-  // Função para editar um usuário da lista
-  function editar(i) {
-    // Preenche o campo de entrada com o nome a ser editado
-    document.getElementById("nomeUser").value = dadosLista[i];
-  
-    // Remove o item antigo do array e o adicionará novamente com o novo valor após a edição
-    dadosLista.splice(i, 1);
-  }
